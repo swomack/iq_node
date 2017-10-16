@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+	"test": "jasmine-node tests",
+	"start": "node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
@@ -16,6 +17,8 @@
     "serve-favicon": "~2.4.5"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
     "jasmine-node": "^1.14.5"
   }
 }
