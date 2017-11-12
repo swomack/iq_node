@@ -2,12 +2,11 @@
  * Created by USER on 10/14/2017.
  */
 
-"use strict";
+'use strict';
 
-class config
-{
-    constructor(type) {
-        if (type == undefined || type === 'local') {
+class Config {
+    constructor(type = 'local') {
+        if (type === 'local') {
             this.mode = 'local';
             this.port = 2000;
         } else if (type === 'staging') {
@@ -18,10 +17,14 @@ class config
             this.port = 4000;
         }
 
+        this.databse_name = 'iq3_database';
+        this.host = 'localhost';
+        this.user_name = 'root';
+        this.password = '';
     }
 }
 
 
 module.exports = function(type) {
-    return new config(type);
+    return new Config(type);
 };
