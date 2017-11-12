@@ -9,6 +9,7 @@ let bodyParser = require('body-parser');
 let lessMiddleware = require('less-middleware');
 let http = require('http');
 let mysql = require('mysql');
+let AdminClass = require('./routes/admin');
 
 
 let app = express();
@@ -50,9 +51,9 @@ connection.connect(function (err) {
         });
 
 
-        app.use('/', function(req, res, next) {
-            res.send("Hello!");
-            //next();
+        app.use('/admin', function(req, res, next) {
+            let admin = new AdminClass('admin');
+            admin.run(req, res, next);
         });
 
         // catch 404 and forward to error handler

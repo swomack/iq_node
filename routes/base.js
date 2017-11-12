@@ -5,6 +5,6 @@ module.exports = class BaseController {
         this.name = name;
     }
 
-    run(req, res) {
+    run(req, res, next) {
     }
 };
