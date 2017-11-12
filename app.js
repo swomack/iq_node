@@ -38,44 +38,74 @@ let connection = mysql.createConnection({
     database: config.databse_name
 });
 
-connection.connect(function (err) {
-    if (err) {
-        console.log('Error: Database connection is not established.');
-        console.log('Details: ' + err.message);
-    } else {
+// start http server
+http.createServer(app).listen(config.port, function () {
+    console.log('listening to port: ' + config.port);
 
-        // start http server
-        http.createServer(app).listen(config.port, function () {
-            console.log('listening to port: ' + config.port);
-
-        });
-
-
-        app.use('/admin', function(req, res, next) {
-            let admin = new AdminClass('admin');
-            admin.run(req, res, next);
-        });
-
-        // catch 404 and forward to error handler
-        app.use(function (req, res, next) {
-            var err = new Error('Not Found');
-            err.status = 404;
-            next(err);
-        });
-
-        // error handler
-        app.use(function (err, req, res, next) {
-            // set locals, only providing error in development
-            res.locals.message = err.message;
-            res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-            // render the error page
-            res.status(err.status || 500);
-            res.render('error');
-        });
-
-
-    }
 });
+
+
+app.use('/admin', function(req, res, next) {
+    let admin = new AdminClass('admin');
+    admin.run(req, res, next);
+});
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+// error handler
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    // res.locals.message = err.message;
+    // res.locals.error = req.app.get('env') === 'development' ? err : {};
+    //
+    // // render the error page
+    // res.status(err.status || 500);
+    // res.render('error');
+});
+
+// connection.connect(function (err) {
+//     if (err) {
+//         console.log('Error: Database connection is not established.');
+//         console.log('Details: ' + err.message);
+//     } else {
+//
+//         // start http server
+//         http.createServer(app).listen(config.port, function () {
+//             console.log('listening to port: ' + config.port);
+//
+//         });
+//
+//
+//         app.use('/admin', function(req, res, next) {
+//             let admin = new AdminClass('admin');
+//             admin.run(req, res, next);
+//         });
+//
+//         // catch 404 and forward to error handler
+//         app.use(function (req, res, next) {
+//             var err = new Error('Not Found');
+//             err.status = 404;
+//             next(err);
+//         });
+//
+//         // error handler
+//         app.use(function (err, req, res, next) {
+//             // set locals, only providing error in development
+//             res.locals.message = err.message;
+//             res.locals.error = req.app.get('env') === 'development' ? err : {};
+//
+//             // render the error page
+//             res.status(err.status || 500);
+//             res.render('error');
+//         });
+//
+//
+//     }
+// });
 
 module.exports = app;
